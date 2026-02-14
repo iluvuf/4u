@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيد حب سعيد ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fdf2f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1);
+            position: relative;
+            width: 90%;
+            max-width: 400px;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            color: #8d6e63; /* لون بني هادئ يناسب الـ 🤎 */
+            font-size: 22px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .heart {
+            color: #d81b60;
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: beat 0.8s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            position: relative;
+        }
+
+        button {
+            padding: 12px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #d81b60;
+            color: white;
+            z-index: 10;
+        }
+
+        #noBtn {
+            background-color: #f0f0f0;
+            color: #888;
+            position: absolute;
+        }
+
+        /* واجهة الرسالة النهائية - علاوي */
+        #finalPage {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            margin: 20px;
+        }
+
+        .message-box {
+            color: #5d4037;
+            font-size: 18px;
+            line-height: 1.8;
+            white-space: pre-line; /* للحفاظ على تنسيق الأسطر */
+            text-align: justify;
+            direction: rtl;
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d81b60;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="mainCard">
+        <div class="heart">❤️‍🔥</div>
+        <h1>كل عيد حب واحنا سوة.. <br>موافقة؟؟ 💍</h1>
+        <div class="buttons">
+            <button id="yesBtn">نعم 😍</button>
+            <button id="noBtn">لا 😢</button>
+        </div>
+    </div>
+
+    <div id="finalPage">
+        <div class="heart">🤎</div>
+        <div class="message-box">
+            حبيبة روحي 🤎!
+            بمناسبة عيد الحب، أعرف أنا مقصر بحقچ هواي بس أعرف إنو أنتِ حتسامحيني، أدري بمعايدتي حتكون قليلة..
+            المهم أحبچ، متتخيلين حبي إلچ شكبره جديات أنتِ أحلى وأحسن وأحن شخص بهل الدنيا، وعسى يارب لا يحرمني منّج ويديمچ إلي ولايامي 🫂
+            كُل عام وأنتِ الخير نفسه لكل عام والخير نفسه لأعوامي وضواها.
+            كُل عام وآني اجي اكتب لج جريدة حلوة مليانة مشاعر حلوة تجاهچ، عام وإحنا سوا.
+            كُل عام وأنتِ ملجأي وأمان إلي، متحملتني رغم كل تحلطمي وحزني، أحبچ لأن دوم تسمعيني، كلّشش أحبچ آني 🫂
+            كُل عام يكون أحلى من الي راح والي جاي أحلى من هذا ✨
+            أعرف إن شاء الله وواثق إنُ حتكونين قوية وتعدين كُل الفترات الصعبة، وراح أكون فخور بيج وين ما كنتِ ووين ما حليتِ 🤎
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainCard = document.getElementById('mainCard');
+        const finalPage = document.getElementById('finalPage');
+
+        // حركة الهروب لزر "لا"
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', moveButton); // للهواتف
+
+        function moveButton() {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        // عند الموافقة
+        yesBtn.addEventListener('click', () => {
+            mainCard.style.display = 'none';
+            finalPage.style.display = 'block';
+            document.body.style.backgroundColor = '#fff5f5';
+        });
+    </script>
+</body>
+</html>
