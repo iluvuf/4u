@@ -13,7 +13,7 @@
             margin: 0;
             background-color: #fdf2f4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
+            overflow: hidden; /* لمنع ظهور شريط التمرير عند هروب الزر */
         }
 
         .container {
@@ -25,18 +25,16 @@
             position: relative;
             width: 90%;
             max-width: 400px;
-            transition: all 0.5s ease;
         }
 
         h1 {
-            color: #8d6e63; /* لون بني هادئ يناسب الـ 🤎 */
+            color: #8d6e63;
             font-size: 22px;
             margin-bottom: 30px;
             line-height: 1.5;
         }
 
         .heart {
-            color: #d81b60;
             font-size: 50px;
             margin-bottom: 20px;
             animation: beat 0.8s infinite alternate;
@@ -61,49 +59,42 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
             font-weight: bold;
         }
 
         #yesBtn {
             background-color: #d81b60;
             color: white;
-            z-index: 10;
         }
 
         #noBtn {
             background-color: #f0f0f0;
             color: #888;
-            position: absolute;
+            position: absolute; /* ضروري عشان يتحرك بحرية */
+            left: 210px; /* مكان افتراضي بجانب زر نعم */
         }
 
-        /* واجهة الرسالة النهائية - علاوي */
+        /* واجهة الرسالة النهائية */
         #finalPage {
             display: none;
-            width: 100%;
+            width: 90%;
             max-width: 500px;
             background: white;
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             text-align: center;
-            animation: fadeIn 1s ease-in;
-            margin: 20px;
+            animation: fadeIn 0.8s ease-in;
         }
 
         .message-box {
             color: #5d4037;
             font-size: 18px;
             line-height: 1.8;
-            white-space: pre-line; /* للحفاظ على تنسيق الأسطر */
+            white-space: pre-line;
             text-align: justify;
             direction: rtl;
-        }
-
-        .signature {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #d81b60;
         }
 
         @keyframes fadeIn {
@@ -119,7 +110,7 @@
         <h1>كل عيد حب واحنا سوة.. <br>موافقة؟؟ 💍</h1>
         <div class="buttons">
             <button id="yesBtn">نعم 🤍</button>
-            <button id="noBtn">لا ❌ </button>
+            <button id="noBtn">لا ❌</button>
         </div>
     </div>
 
@@ -143,24 +134,30 @@
         const mainCard = document.getElementById('mainCard');
         const finalPage = document.getElementById('finalPage');
 
-        // حركة الهروب لزر "لا"
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton); // للهواتف
-
+        // دالة تحريك الزر لمكان عشوائي
         function moveButton() {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 20);
+            // حساب أبعاد الشاشة مع ترك هامش بسيط عشان ما يختفي الزر تماماً
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         }
 
-        // عند الموافقة
+        // تفعيل الهروب عند مرور الماوس أو اللمس (للموبايل)
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // يمنع النقر عند اللمس في الموبايل
+            moveButton();
+        });
+
+        // عند الضغط على نعم
         yesBtn.addEventListener('click', () => {
             mainCard.style.display = 'none';
             finalPage.style.display = 'block';
             document.body.style.backgroundColor = '#fff5f5';
+            document.body.style.overflow = 'auto'; // السماح بالتمرير لقراءة الرسالة الطويلة
         });
     </script>
 </body>
