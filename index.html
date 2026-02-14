@@ -13,7 +13,7 @@
             margin: 0;
             background-color: #fdf2f4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* لمنع ظهور شريط التمرير عند هروب الزر */
+            overflow: hidden; 
         }
 
         .container {
@@ -45,11 +45,13 @@
             to { transform: scale(1.15); }
         }
 
+        /* تعديل علاوي: ترتيب الأزرار بشكل أفقي */
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            height: 60px;
+            align-items: center;
+            gap: 30px; /* مسافة كافية بين النعم واللا */
+            height: 80px;
             position: relative;
         }
 
@@ -61,18 +63,24 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
         }
 
         #yesBtn {
             background-color: #d81b60;
             color: white;
+            min-width: 120px;
         }
 
         #noBtn {
             background-color: #f0f0f0;
             color: #888;
-            position: absolute; /* ضروري عشان يتحرك بحرية */
-            left: 210px; /* مكان افتراضي بجانب زر نعم */
+            min-width: 100px;
+            /* نخليه يتحرك بالنسبة للشاشة فقط عند الهروب */
+            z-index: 1000;
         }
 
         /* واجهة الرسالة النهائية */
@@ -134,30 +142,28 @@
         const mainCard = document.getElementById('mainCard');
         const finalPage = document.getElementById('finalPage');
 
-        // دالة تحريك الزر لمكان عشوائي
         function moveButton() {
-            // حساب أبعاد الشاشة مع ترك هامش بسيط عشان ما يختفي الزر تماماً
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 50);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 50);
+            // حساب مكان عشوائي بعيد عن زر نعم
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         }
 
-        // تفعيل الهروب عند مرور الماوس أو اللمس (للموبايل)
         noBtn.addEventListener('mouseover', moveButton);
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // يمنع النقر عند اللمس في الموبايل
+            e.preventDefault();
             moveButton();
         });
 
-        // عند الضغط على نعم
         yesBtn.addEventListener('click', () => {
             mainCard.style.display = 'none';
             finalPage.style.display = 'block';
             document.body.style.backgroundColor = '#fff5f5';
-            document.body.style.overflow = 'auto'; // السماح بالتمرير لقراءة الرسالة الطويلة
+            document.body.style.overflow = 'auto';
         });
     </script>
 </body>
